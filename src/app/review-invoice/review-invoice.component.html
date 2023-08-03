@@ -1,0 +1,86 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between">
+      <p class="fs-2 mb-0">INVOICE</p>
+      <p class="fs-4 mb-0 text-end">#{{data.invoiceNumber}}</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col">
+        <div class="d-flex flex-row">
+          <p class="w-25 fw-bold mb-0">Date of Issue:</p>
+          <p class="fw-lighter mb-0">{{data.currentDate}}</p>
+        </div>
+        <div class="d-flex flex-row">
+          <p class="w-25  fw-bold mb-0">Due Date:</p>
+          <p class="fw-lighter mb-0">{{data.dueDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <p class="fw-bold mb-0">Bill to:</p>
+        <p class="fw-lighter mb-0">{{data.billTo}}</p>
+        <p class="fw-lighter mb-0">{{data.billToEmail}}</p>
+        <p class="fw-lighter mb-0">{{data.billToAddress}}</p>
+      </div>
+      <div class="col">
+        <p class="fw-bold mb-0">Bill from:</p>
+        <p class="fw-lighter mb-0">{{data.billFrom}}</p>
+        <p class="fw-lighter mb-0">{{data.billFromEmail}}</p>
+        <p class="fw-lighter mb-0">{{data.billFromAddress}}</p>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th class="w-50">DESCRIPTION</th>
+              <th class="text-end">QTY</th>
+              <th class="text-end">PRICE</th>
+              <th class="text-end">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data.items">
+              <td class="fw-lighter">
+                <p class="mb-0">{{item.name}}</p>
+                <span>{{item.description}}</span>
+              </td>
+              <td class="text-end fw-lighter">{{item.quantity | number: '1.2-2'}}</td>
+              <td class="text-end fw-lighter">{{currency.symbol}} {{item.price | number: '1.2-2'}}</td>
+              <td class="text-end fw-lighter">{{currency.symbol}} {{item.quantity * item.price | number: '1.2-2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row justify-content-end">
+          <div class="col-12 col-md-4">
+            <div class="d-flex align-items-start justify-content-between">
+              <span class="fw-bold">Subtotal:</span>
+              <span class="fw-lighter">{{currency.symbol}} {{data.subtotal | number: '1.2-2'}}</span>
+            </div>
+            <div class="d-flex align-items-start justify-content-between">
+              <span class="fw-bold">Tax:</span>
+              <span class="fw-lighter">{{currency.symbol}} {{data.tax | number: '1.2-2'}}</span>
+            </div>
+            <div class="d-flex align-items-start justify-content-between">
+              <span class="fw-bold">Discount:</span>
+              <span class="fw-lighter">{{currency.symbol}} {{data.discount | number: '1.2-2'}}</span>
+            </div>
+            <div class="d-flex align-items-start justify-content-between">
+              <span class="fw-bold">Total:</span>
+              <span class="fw-lighter">{{currency.symbol}} {{data.total | number: '1.2-2'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="data.notes">
+      <div class="col">
+        <div class="alert alert-light" role="alert">{{data.notes}}</div>
+      </div>
+    </div>
+  </div>
+</div>
