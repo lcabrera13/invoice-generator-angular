@@ -21,6 +21,7 @@ export class InvoiceComponent implements OnInit {
     {code: 'BTC', name: 'BTC (Bitcoin)', symbol: '₿'},
   ];
   currency: Currency = this.currencies[0];
+  now: Date = new Date();
   format: string = 'DD-MM-YYYY';
   bsConfig?: Partial<BsDatepickerConfig>;
   bsModalRef?: BsModalRef;
@@ -28,8 +29,6 @@ export class InvoiceComponent implements OnInit {
   constructor(private fb: FormBuilder, private modalService: BsModalService) {}
 
   ngOnInit(): void {
-    const now = new Date();
-
     this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: this.format });
 
     this.form = this.fb.group({
@@ -38,8 +37,8 @@ export class InvoiceComponent implements OnInit {
       taxRate: [{value: null, disabled: true}, []],
       showDiscountRate: [false, []],
       discountRate: [{value: null, disabled: true}, []],
-      currentDate: [moment(now).format(this.format), [Validators.required]],
-      dueDate: [moment(now).format(this.format), [Validators.required]],
+      currentDate: [moment(this.now).format(this.format), [Validators.required]],
+      dueDate: [moment(this.now).format(this.format), [Validators.required]],
       invoiceNumber: [1, [Validators.required]],
       billTo: [null, [Validators.required]],
       billToEmail: [null, [Validators.required, Validators.email]],

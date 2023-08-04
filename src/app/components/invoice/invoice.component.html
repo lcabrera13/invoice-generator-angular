@@ -31,7 +31,7 @@
                           <label for="dueDate" class="col-sm-4 col-form-label fw-bold">Due Date:</label>
                           <div class="col-sm-8">
                             <input type="text" readonly class="form-control" id="dueDate" formControlName="dueDate"
-                              bsDatepicker [bsConfig]="bsConfig">
+                              bsDatepicker [bsConfig]="bsConfig" [minDate]="now">
                           </div>
                         </div>
                       </div>
