@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Currency } from '@models/currency.model';
+import { Invoice } from '@models/invoice.model';
 
 @Component({
   selector: 'app-review-invoice',
@@ -6,8 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./review-invoice.component.scss']
 })
 export class ReviewInvoiceComponent {
-  data: any;
-  currency: any;
+  invoice!: Invoice;
+  currency!: Currency;
 
   constructor() {}
 }

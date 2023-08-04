@@ -2,7 +2,7 @@
   <div class="card-header">
     <div class="d-flex justify-content-between">
       <p class="fs-2 mb-0">INVOICE</p>
-      <p class="fs-4 mb-0 text-end">#{{data.invoiceNumber}}</p>
+      <p class="fs-4 mb-0 text-end">#{{invoice.invoiceNumber}}</p>
     </div>
   </div>
   <div class="card-body">
@@ -10,26 +10,26 @@
       <div class="col">
         <div class="d-flex flex-row">
           <p class="w-25 fw-bold mb-0">Date of Issue:</p>
-          <p class="fw-lighter mb-0">{{data.currentDate}}</p>
+          <p class="fw-lighter mb-0">{{invoice.currentDate}}</p>
         </div>
         <div class="d-flex flex-row">
           <p class="w-25  fw-bold mb-0">Due Date:</p>
-          <p class="fw-lighter mb-0">{{data.dueDate}}</p>
+          <p class="fw-lighter mb-0">{{invoice.dueDate}}</p>
         </div>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col">
         <p class="fw-bold mb-0">Bill to:</p>
-        <p class="fw-lighter mb-0">{{data.billTo}}</p>
-        <p class="fw-lighter mb-0">{{data.billToEmail}}</p>
-        <p class="fw-lighter mb-0">{{data.billToAddress}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billTo}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billToEmail}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billToAddress}}</p>
       </div>
       <div class="col">
         <p class="fw-bold mb-0">Bill from:</p>
-        <p class="fw-lighter mb-0">{{data.billFrom}}</p>
-        <p class="fw-lighter mb-0">{{data.billFromEmail}}</p>
-        <p class="fw-lighter mb-0">{{data.billFromAddress}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billFrom}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billFromEmail}}</p>
+        <p class="fw-lighter mb-0">{{invoice.billFromAddress}}</p>
       </div>
     </div>
     <div class="row mb-3">
@@ -44,7 +44,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of data.items">
+            <tr *ngFor="let item of invoice.items">
               <td class="fw-lighter">
                 <p class="mb-0">{{item.name}}</p>
                 <span>{{item.description}}</span>
@@ -59,27 +59,27 @@
           <div class="col-12 col-md-4">
             <div class="d-flex align-items-start justify-content-between">
               <span class="fw-bold">Subtotal:</span>
-              <span class="fw-lighter">{{currency.symbol}} {{data.subtotal | number: '1.2-2'}}</span>
+              <span class="fw-lighter">{{currency.symbol}} {{invoice.subtotal | number: '1.2-2'}}</span>
             </div>
-            <div class="d-flex align-items-start justify-content-between">
+            <div *ngIf="invoice.showTaxRate" class="d-flex align-items-start justify-content-between">
               <span class="fw-bold">Tax:</span>
-              <span class="fw-lighter">{{currency.symbol}} {{data.tax | number: '1.2-2'}}</span>
+              <span class="fw-lighter">{{currency.symbol}} {{invoice.tax | number: '1.2-2'}}</span>
             </div>
-            <div class="d-flex align-items-start justify-content-between">
+            <div *ngIf="invoice.showDiscountRate" class="d-flex align-items-start justify-content-between">
               <span class="fw-bold">Discount:</span>
-              <span class="fw-lighter">{{currency.symbol}} {{data.discount | number: '1.2-2'}}</span>
+              <span class="fw-lighter">{{currency.symbol}} {{invoice.discount | number: '1.2-2'}}</span>
             </div>
             <div class="d-flex align-items-start justify-content-between">
               <span class="fw-bold">Total:</span>
-              <span class="fw-lighter">{{currency.symbol}} {{data.total | number: '1.2-2'}}</span>
+              <span class="fw-lighter">{{currency.symbol}} {{invoice.total | number: '1.2-2'}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="data.notes">
+    <div class="row" *ngIf="invoice.notes">
       <div class="col">
-        <div class="alert alert-light" role="alert">{{data.notes}}</div>
+        <div class="alert alert-light" role="alert">{{invoice.notes}}</div>
       </div>
     </div>
   </div>
