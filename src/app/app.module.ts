@@ -6,12 +6,13 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
-import { ReviewInvoiceComponent } from './review-invoice/review-invoice.component';
+import { InvoiceComponent, ReviewInvoiceComponent } from '@components/index';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReviewInvoiceComponent
+    InvoiceComponent,
+    ReviewInvoiceComponent,
   ],
   imports: [
     BrowserModule,

@@ -34,7 +34,11 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "moment"
+              "moment",
+              "raf",
+              "rgbcolor",
+              "html2canvas",
+              "core-js"
             ]
           },
           "configurations": {
@@ -43,7 +47,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1.5mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",

@@ -1,0 +1,197 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="row gap-2">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <label for="currentDate" class="col-sm-4 col-form-label fw-bold">Current Date:</label>
+                          <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="currentDate"
+                              formControlName="currentDate">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <label for="invoiceNumber" class="col-sm-5 col-form-label fw-bold">Invoice Number:</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control" id="invoiceNumber" formControlName="invoiceNumber">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <label for="dueDate" class="col-sm-4 col-form-label fw-bold">Due Date:</label>
+                          <div class="col-sm-8">
+                            <input type="text" readonly class="form-control" id="dueDate" formControlName="dueDate"
+                              bsDatepicker [bsConfig]="bsConfig" [minDate]="now">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <p class="fw-bold">Bill to:</p>
+                        <div class="d-grid gap-2">
+                          <input class="form-control" type="text" formControlName="billTo"
+                            placeholder="Who is this invoice to?">
+                          <input class="form-control" type="text" formControlName="billToEmail"
+                            placeholder="Email address">
+                          <input class="form-control" type="text" formControlName="billToAddress"
+                            placeholder="Billing address">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <p class="fw-bold">Bill from:</p>
+                        <div class="d-grid gap-2">
+                          <input class="form-control" type="text" formControlName="billFrom"
+                            placeholder="Who is this invoice from?">
+                          <input class="form-control" type="text" formControlName="billFromEmail"
+                            placeholder="Email address">
+                          <input class="form-control" type="text" formControlName="billFromAddress"
+                            placeholder="Billing address">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th class="align-middle">ITEM</th>
+                              <th class="align-middle" width="80">QTY</th>
+                              <th class="align-middle" width="120">PRICE/RATE</th>
+                              <th class="text-center">
+                                <button type="button" class="btn btn-primary" (click)="addItem()">
+                                  <span class="bi-plus-circle"></span>
+                                </button>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody formArrayName="items">
+                            <ng-container *ngFor="let itemForm of items.controls; let i = index">
+                              <tr [formGroupName]="i">
+                                <td>
+                                  <div class="d-grid gap-2">
+                                    <input class="form-control" type="text" placeholder="Item name"
+                                      formControlName="name">
+                                    <input class="form-control" type="text" placeholder="Item description"
+                                      formControlName="description">
+                                  </div>
+                                </td>
+                                <td>
+                                  <input class="form-control" type="number" formControlName="quantity"
+                                    placeholder="0.0">
+                                </td>
+                                <td>
+                                  <input class="form-control" type="number" formControlName="price" placeholder="0.0">
+                                </td>
+                                <td class="text-center">
+                                  <button type="button" class="btn btn-danger" (click)="removeItem(i)">
+                                    <span class="bi-trash"></span>
+                                  </button>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                        <div class="row justify-content-end">
+                          <div class="col-12 col-md-4">
+                            <div class="d-flex align-items-start justify-content-between">
+                              <span class="fw-bold">Subtotal:</span>
+                              <span>{{currency.symbol}} {{subtotal.value | number: '1.2-2'}}</span>
+                            </div>
+                            <div *ngIf="showTaxRate.value" class="d-flex align-items-start justify-content-between">
+                              <span class="fw-bold">Tax:</span>
+                              <span>({{taxRate.value * 100 / 100}}%) {{currency.symbol}} {{tax.value | number:
+                                '1.2-2'}}</span>
+                            </div>
+                            <div *ngIf="showDiscountRate.value"
+                              class="d-flex align-items-start justify-content-between">
+                              <span class="fw-bold">Discount:</span>
+                              <span>({{discountRate.value * 100 / 100}}%) {{currency.symbol}} {{discount.value | number:
+                                '1.2-2'}}</span>
+                            </div>
+                            <div class="d-flex align-items-start justify-content-between">
+                              <span class="fw-bold">Total:</span>
+                              <span>{{currency.symbol}} {{total.value | number: '1.2-2'}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <label for="notes" class="form-label fw-bold">Notes:</label>
+                        <textarea class="form-control" id="notes" rows="2" placeholder="Thanks for your business!"
+                          formControlName="notes"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="d-grid mt-4 mt-md-0">
+          <button class="btn btn-primary fw-bold" type="submit" [disabled]="form.invalid">Review Invoice</button>
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label for="currency" class="form-label fw-bold">Currency:</label>
+          <select class="form-select" id="currency" formControlName="currency">
+            <option *ngFor="let currency of currencies" [value]="currency.code">{{currency.name}}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="taxtRate" class="form-label fw-bold">Tax rate:</label>
+          <div class="input-group">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" formControlName="showTaxRate">
+            </div>
+            <input type="number" class="form-control" placeholder="0.0" id="taxtRate" formControlName="taxRate">
+            <span class="input-group-text" id="basic-addon1">%</span>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="discountRate" class="form-label fw-bold">Discount rate:</label>
+          <div class="input-group">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" formControlName="showDiscountRate">
+            </div>
+            <input type="number" class="form-control" placeholder="0.0" id="discountRate"
+              formControlName="discountRate">
+            <span class="input-group-text" id="basic-addon1">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
