@@ -34,7 +34,11 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "moment"
+              "moment",
+              "raf",
+              "rgbcolor",
+              "html2canvas",
+              "core-js"
             ]
           },
           "configurations": {

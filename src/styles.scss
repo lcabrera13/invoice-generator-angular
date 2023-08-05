@@ -6,9 +6,13 @@
 @import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
 
 body {
-    color: #342e49;
-    font-size: 0.875rem;
-    overflow-x: hidden;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f2f3f7;
+  color: #342e49;
+  font-size: 0.875rem;
+  overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f2f3f7;
+}
+
+.modal-content {
+  overflow: hidden;
 }

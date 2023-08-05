@@ -86,21 +86,21 @@ export class InvoiceComponent implements OnInit {
       this.calculateTotals();
     });
 
-    this.form.patchValue({
-      billTo: 'Bill To',
-      billToEmail: 'billto@mail.com',
-      billToAddress: 'bill to address',
-      billFrom: 'Bill From',
-      billFromEmail: 'billfrom@mail.com',
-      billFromAddress: 'bill from address'
-    });
+    // this.form.patchValue({
+    //   billTo: 'Bill To',
+    //   billToEmail: 'billto@mail.com',
+    //   billToAddress: 'bill to address',
+    //   billFrom: 'Bill From',
+    //   billFromEmail: 'billfrom@mail.com',
+    //   billFromAddress: 'bill from address'
+    // });
 
-    this.items.at(0).patchValue({
-      name: 'Item',
-      description: 'Item description',
-      quantity: 1,
-      price: 10
-    });
+    // this.items.at(0).patchValue({
+    //   name: 'Item',
+    //   description: 'Item description',
+    //   quantity: 1,
+    //   price: 10
+    // });
   }
 
   get showTaxRate(): AbstractControl { return this.form.get('showTaxRate') as AbstractControl; }
@@ -157,7 +157,8 @@ export class InvoiceComponent implements OnInit {
       initialState: {
         invoice: this.form.value as Invoice,
         currency: this.currency
-      }
+      },
+      class: 'abc'
     };
     
     this.bsModalRef = this.modalService.show(ReviewInvoiceComponent, initialState);
